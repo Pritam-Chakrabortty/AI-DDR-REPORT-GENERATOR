@@ -1,0 +1,77 @@
+🚀 AI-DDR REPORT GENERATOR - SETUP GUIDE 🚀
+================================================
+
+Hello! Here's how to get this DDR Generator running on your system:
+
+📋 STEP 1: PREREQUISITES
+------------------------
+• Python 3.8 or higher must be installed
+• Get a FREE Google Gemini API key from: https://makersuite.google.com/app/apikey
+• Basic computer skills (copy/paste, running commands)
+
+📁 STEP 2: PROJECT SETUP
+-------------------------
+1. Extract/unzip the project folder
+2. Open Command Prompt/Terminal
+3. Navigate to the project folder:
+   cd AI-DDR-REPORT-GENERATOR
+
+4. Install required packages:
+   pip install -r requirements.txt
+
+5. Create your configuration file:
+   copy .env.example .env
+
+🔑 STEP 3: CONFIGURE API KEY
+-----------------------------
+1. Open the .env file in any text editor (Notepad, VS Code, etc.)
+2. Find this line:
+   GEMINI_API_KEY=AIzaSyB1Gd6bSr_QC3ohiOseP1fQgkCuv5UAB8Q
+3. Replace the key with YOUR actual Gemini API key:
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+4. Save the file
+
+🚀 STEP 4: RUN THE APPLICATION
+--------------------------------
+Choose ONE of these options:
+
+🌐 OPTION A: WEB INTERFACE (RECOMMENDED)
+-----------------------------------------
+1. Run this command:
+   python web_app.py
+2. Open your web browser
+3. Go to: http://localhost:5000
+4. Use the upload interface to generate reports
+
+💻 OPTION B: COMMAND LINE
+--------------------------
+1. Run this command:
+   python main.py
+2. Follow the prompts to enter file paths
+3. View results in console and output folder
+
+🧪 STEP 5: TEST IT
+------------------
+• Upload any inspection report PDF
+• Upload any thermal report PDF  
+• System will generate a detailed diagnostic report
+• Check the 'output' folder for your generated reports
+
+✅ SUCCESS! 
+You're now ready to generate professional DDR reports!
+
+🆘 NEED HELP?
+------------
+• Check the README.md file for detailed documentation
+• Ensure your API key is valid and active
+• Make sure Python 3.8+ is properly installed
+• Test with small PDF files first
+
+📁 WHAT YOU'LL GET:
+------------------
+• Professional DDR Reports (PDF format)
+• Extracted images organized by type
+• Detailed analysis of property issues
+• Actionable recommendations
+
+Happy Report Generating! 🎉
