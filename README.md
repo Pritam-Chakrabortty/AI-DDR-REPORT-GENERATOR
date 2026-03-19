@@ -22,7 +22,7 @@ A comprehensive Python application that generates Detailed Diagnostic Reports (D
 ![Web Interface](screenshots/SS1.png)
 
 ### Generated Report Preview
-![DDR Report](screenshots/SS2 (2).png)
+![DDR Report](https://github.com/Pritam-Chakrabortty/AI-DDR-REPORT-GENERATOR/blob/main/screenshots/SS2%20(2).png)
 
 ## 📋 Report Structure
 
