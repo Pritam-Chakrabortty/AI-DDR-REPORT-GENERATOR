@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-DDR Generator - Premium Property Analysis</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+            animation: gradientShift 15s ease infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%); }
+            25% { background: linear-gradient(135deg, #2d3748 0%, #1a202c 50%, #4a5568 100%); }
+            50% { background: linear-gradient(135deg, #1a202c 0%, #4a5568 50%, #2d3748 100%); }
+            75% { background: linear-gradient(135deg, #4a5568 0%, #1a202c 50%, #2d3748 100%); }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 120px; height: 120px; left: 70%; top: 60%; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 60px; height: 60px; left: 30%; top: 80%; animation-delay: 4s; }
+        .shape:nth-child(4) { width: 100px; height: 100px; left: 80%; top: 10%; animation-delay: 6s; }
+        .shape:nth-child(5) { width: 90px; height: 90px; left: 50%; top: 40%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #00f2fe !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #e2e8f0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 1;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            opacity: 1;
+            line-height: 1.6;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+
+        .cta-button {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
+            color: white;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Feature Cards */
+        .features-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feature-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+
+        .feature-description {
+            opacity: 1;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 80px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .process-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-gradient);
+            transform: translateX(-50%);
+        }
+
+        .process-step {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .process-step:nth-child(odd) .process-content {
+            margin-right: 50%;
+            padding-right: 2rem;
+            text-align: right;
+        }
+
+        .process-step:nth-child(even) .process-content {
+            margin-left: 50%;
+            padding-left: 2rem;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+            border: 3px solid white;
+            z-index: 1;
+        }
+
+        .process-content {
+            color: white;
+        }
+
+        .process-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-description {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 80px 0;
+        }
+
+        .upload-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem;
+            color: white;
+        }
+
+        .upload-area {
+            border: 3px dashed var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--glass-bg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: #00f2fe;
+            background: rgba(0, 242, 254, 0.1);
+            transform: scale(1.02);
+        }
+
+        .upload-area.dragover {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.2);
+            transform: scale(1.05);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: uploadPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes uploadPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .upload-description {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-name {
+            color: #00f2fe;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .submit-button {
+            background: var(--accent-gradient);
+            border: none;
+            color: white;
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.3);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .process-timeline::before { left: 20px; }
+            .process-step .process-content { margin-left: 0 !important; margin-right: 0 !important; padding-left: 60px !important; padding-right: 20px !important; text-align: left !important; }
+            .step-number { left: 20px; }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Flash Messages */
+        .alert {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .alert-danger {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: rgba(244, 67, 54, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-brain"></i>
+                AI-DDR Generator
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#process">Process</a>
+                <a class="nav-link" href="#upload">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1000">
+                AI-Powered Property Analysis
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                Transform Your Inspection Reports into Actionable Intelligence
+            </p>
+            <p class="hero-description" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                Experience the future of property assessment with our advanced AI system. 
+                Generate comprehensive Detailed Diagnostic Reports that combine cutting-edge technology 
+                with expert-level analysis.
+            </p>
+            <a href="#upload" class="cta-button" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                <i class="fas fa-rocket"></i>
+                Start Analysis
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="text-center text-white mb-5" data-aos="fade-up">Revolutionary Features</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="feature-title">Smart PDF Processing</h3>
+                        <p class="feature-description">
+                            Advanced extraction technology that intelligently analyzes both inspection 
+                            and thermal reports with unprecedented accuracy.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">AI-Powered Analysis</h3>
+                        <p class="feature-description">
+                            Google Gemini 2.5 Flash delivers expert-level insights, identifying patterns 
+                            and issues that might be missed by traditional methods.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Professional Reports</h3>
+                        <p class="feature-description">
+                            Generate stunning, publication-ready DDR reports that impress clients 
+                            and demonstrate unparalleled expertise.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process-section">
+        <div class="container">
+            <h2 class="text-center text-white mb-5" data-aos="fade-up">How It Works</h2>
+            <div class="process-timeline">
+                <div class="process-step" data-aos="fade-right">
+                    <div class="step-number">1</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Upload Your Reports</h3>
+                        <p class="process-description">
+                            Simply upload your inspection and thermal PDF reports through our 
+                            intuitive drag-and-drop interface.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-left">
+                    <div class="step-number">2</div>
+                    <div class="process-content">
+                        <h3 class="process-title">AI Analysis</h3>
+                        <p class="process-description">
+                            Our advanced AI system processes your documents, extracting key insights 
+                            and identifying critical issues.
+                        </p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-right">
+                    <div class="step-number">3</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Premium DDR Report</h3>
+                        <p class="process-description">
+                            Receive a comprehensive, professionally formatted report that provides 
+                            actionable insights and recommendations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <div class="upload-container" data-aos="fade-up">
+                <h2 class="text-center mb-4">Generate Your Premium Report</h2>
+                
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="upload-area" onclick="document.getElementById('inspection_file').click()">
+                                <div class="upload-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h3 class="upload-title">Inspection Report</h3>
+                                <p class="upload-description">Click to browse or drag and drop</p>
+                                <input type="file" id="inspection_file" name="inspection_file" class="file-input" accept=".pdf" required>
+                                <div id="inspection_name" class="file-name"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="upload-area" onclick="document.getElementById('thermal_file').click()">
+                                <div class="upload-icon">
+                                    <i class="fas fa-temperature-high"></i>
+                                </div>
+                                <h3 class="upload-title">Thermal Report</h3>
+                                <p class="upload-description">Click to browse or drag and drop</p>
+                                <input type="file" id="thermal_file" name="thermal_file" class="file-input" accept=".pdf" required>
+                                <div id="thermal_name" class="file-name"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="submit-button" id="submit-btn" disabled>
+                            <i class="fas fa-magic"></i>
+                            Generate Premium DDR
+                        </button>
+                        <div class="loading-spinner" id="loading-spinner"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0"></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // File upload handling
+        document.getElementById('inspection_file').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                document.getElementById('inspection_name').textContent = ` ${fileName}`;
+                checkBothFiles();
+            }
+        });
+
+        document.getElementById('thermal_file').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                document.getElementById('thermal_name').textContent = ` ${fileName}`;
+                checkBothFiles();
+            }
+        });
+
+        function checkBothFiles() {
+            const inspectionFile = document.getElementById('inspection_file').files[0];
+            const thermalFile = document.getElementById('thermal_file').files[0];
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (inspectionFile && thermalFile) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Premium DDR';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-magic"></i> Generate Premium DDR';
+            }
+        }
+
+        // Drag and drop functionality
+        const uploadAreas = document.querySelectorAll('.upload-area');
+        
+        uploadAreas.forEach(area => {
+            area.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                area.classList.add('dragover');
+            });
+
+            area.addEventListener('dragleave', () => {
+                area.classList.remove('dragover');
+            });
+
+            area.addEventListener('drop', (e) => {
+                e.preventDefault();
+                area.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                const fileInput = area.querySelector('input[type="file"]');
+                
+                if (files.length > 0 && files[0].type === 'application/pdf') {
+                    fileInput.files = files;
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                }
+            });
+        });
+
+        // Form submission loading state
+        document.querySelector('form').addEventListener('submit', function() {
+            const submitBtn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            spinner.style.display = 'block';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+                navbar.style.backdropFilter = 'blur(25px)';
+            } else {
+                navbar.style.background = 'var(--glass-bg)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
+        });
+    </script>
+</body>
+</html>
